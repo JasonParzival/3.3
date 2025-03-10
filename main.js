@@ -67,103 +67,21 @@ async function processFilter() {
     console.log(filteredData);
 }
 
-async function fillListPoleznost() {
-    let r = await fetch("/data.json");
-    let data = await r.json();
-
-    let container = document.querySelector("#elements-container > tbody");
-
-    let selectPoleznost = document.querySelector("#selectPoleznost");
-
-    let filteredData = data.filter(item => {
-        // чтобы не получалось сильно длинных строчек, я перепишу анонимную функцию через return
-        return selectPoleznost.value == 'не важно' || item['Насколько курс был полезен?'] == selectPoleznost.value
-    })
-
-    container.replaceChildren()
-
-    filteredData.forEach(item => {
-        container.insertAdjacentHTML("beforeend", `
-        <tr>
-            <td>${item['ID']}</td>
-            <td>${item['Насколько курс был полезен?']}</td>
-            <td>${item['Насколько доволен форматом обучения?']}</td>
-            <td>${item['Отметь, в какой мере ты удовлетворен курсом?']}</td>
-        </tr>
-        `);
-    })
-}
-
 async function onSelectPoleznostChanged() {
     let selectPoleznost = document.querySelector("#selectDovolnost")
     console.log(selectPoleznost.value)
-    fillListPoleznost()
-}
-
-async function fillListDovolnost() {
-    let r = await fetch("/data.json");
-    let data = await r.json();
-
-    let container = document.querySelector("#elements-container > tbody");
-
-    let selectDovolnost = document.querySelector("#selectDovolnost");
-
-    let filteredData = data.filter(item => {
-        // чтобы не получалось сильно длинных строчек, я перепишу анонимную функцию через return
-        return selectDovolnost.value == 'не важно' || item['Насколько доволен форматом обучения?'] == selectDovolnost.value
-    })
-
-    container.replaceChildren()
-
-    filteredData.forEach(item => {
-        container.insertAdjacentHTML("beforeend", `
-        <tr>
-            <td>${item['ID']}</td>
-            <td>${item['Насколько курс был полезен?']}</td>
-            <td>${item['Насколько доволен форматом обучения?']}</td>
-            <td>${item['Отметь, в какой мере ты удовлетворен курсом?']}</td>
-        </tr>
-        `);
-    })
+    updating()
 }
 
 async function onSelectDovolnostChanged() {
     let selectDovolnost = document.querySelector("#selectDovolnost")
     console.log(selectDovolnost.value)
-    fillListDovolnost()
-}
-
-async function fillListUdovletvoronost() {
-    let r = await fetch("/data.json");
-    let data = await r.json();
-
-    let container = document.querySelector("#elements-container > tbody");
-
-    let selectUdovletvoronost = document.querySelector("#selectUdovletvoronost");
-
-    let filteredData = data.filter(item => {
-        // чтобы не получалось сильно длинных строчек, я перепишу анонимную функцию через return
-        return selectUdovletvoronost.value == 'не важно' || item['Отметь, в какой мере ты удовлетворен курсом?'] == selectUdovletvoronost.value
-    })
-
-    container.replaceChildren()
-
-    filteredData.forEach(item => {
-        container.insertAdjacentHTML("beforeend", `
-        <tr>
-            <td>${item['ID']}</td>
-            <td>${item['Насколько курс был полезен?']}</td>
-            <td>${item['Насколько доволен форматом обучения?']}</td>
-            <td>${item['Отметь, в какой мере ты удовлетворен курсом?']}</td>
-        </tr>
-        `);
-    })
+    updating()
 }
 
 async function onSelectUdovletvoronostChanged() {
     let selectUdovletvoronost = document.querySelector("#selectUdovletvoronost")
     console.log(selectUdovletvoronost.value)
-    //fillListUdovletvoronost()
     updating()
 }
 
