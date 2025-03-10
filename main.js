@@ -67,21 +67,9 @@ async function processFilter() {
     console.log(filteredData);
 }
 
-async function onSelectPoleznostChanged() {
-    let selectPoleznost = document.querySelector("#selectDovolnost")
+async function onSelectChanged(coolSelect) {
+    let selectPoleznost = document.querySelector(coolSelect)
     console.log(selectPoleznost.value)
-    updating()
-}
-
-async function onSelectDovolnostChanged() {
-    let selectDovolnost = document.querySelector("#selectDovolnost")
-    console.log(selectDovolnost.value)
-    updating()
-}
-
-async function onSelectUdovletvoronostChanged() {
-    let selectUdovletvoronost = document.querySelector("#selectUdovletvoronost")
-    console.log(selectUdovletvoronost.value)
     updating()
 }
 
