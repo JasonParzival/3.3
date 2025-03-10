@@ -58,4 +58,48 @@ async function process() {
     })
 }
 
+async function processFilter() {
+    let r = await fetch("/data.json");
+    let data = await r.json();
+    console.log(data);
+
+    let filteredData = data.filter(item => item["Насколько курс был полезен?"] == "Полезный")
+    console.log(filteredData);
+}
+
+async function fillList() {
+    let r = await fetch("/data.json");
+    let data = await r.json();
+
+    let container = document.querySelector("#elements-container > tbody");
+
+    let selectPoleznost = document.querySelector("#selectPoleznost");
+
+    let filteredData = data.filter(item => {
+        // чтобы не получалось сильно длинных строчек, я перепишу анонимную функцию через return
+        return selectPoleznost.value == 'не важно' || item['Насколько курс был полезен?'] == selectPoleznost.value
+    })
+
+    container.replaceChildren()
+
+    filteredData.forEach(item => {
+        container.insertAdjacentHTML("beforeend", `
+        <tr>
+            <td>${item['ID']}</td>
+            <td>${item['Насколько курс был полезен?']}</td>
+            <td>${item['Насколько доволен форматом обучения?']}</td>
+            <td>${item['Отметь, в какой мере ты удовлетворен курсом?']}</td>
+        </tr>
+        `);
+    })
+}
+
+async function onSelectPoleznostChanged() {
+    let selectPoleznost = document.querySelector("#selectPoleznost")
+    console.log(selectPoleznost.value)
+    fillList()
+}
+
 process()
+processFilter()
+fillList()
